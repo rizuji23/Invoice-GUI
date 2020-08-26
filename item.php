@@ -30,7 +30,7 @@ if (empty($_SESSION['code_client'])) {
                         <a class="nav-link" href="#">Tambah Invoice <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Lihat Data Invoice</a>
+                        <a class="nav-link" href="lihat/index.php">Lihat Data Invoice</a>
                     </li>
 
                 </ul>

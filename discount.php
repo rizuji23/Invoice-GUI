@@ -13,7 +13,7 @@ if (empty($_SESSION['code_client'])) {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>INPUT INVOICE</title>
+        <title>INPUT DISCOUNT INVOICE</title>
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/bootstrap.min.css">
     </head>
@@ -30,7 +30,7 @@ if (empty($_SESSION['code_client'])) {
                         <a class="nav-link" href="#">Tambah Invoice <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Lihat Data Invoice</a>
+                        <a class="nav-link" href="lihat/index.php">Lihat Data Invoice</a>
                     </li>
 
                 </ul>
@@ -62,7 +62,7 @@ if (empty($_SESSION['code_client'])) {
         ?>
 
         <div class="container">
-            <div class="jumbotron">
+            <div class="jumbotron mt-4">
                 <h2>Input Invoice</h2>
                 <hr>
                 <h4>Discount</h4>

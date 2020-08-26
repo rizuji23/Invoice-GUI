@@ -30,23 +30,38 @@
 
     <?php
     require '../functions.php';
-    $data = mysqli_query($koneksi, "SELECT * FROM client");
+    $code = $_GET['code'];
+    $id = $_GET['id'];
+    $client = mysqli_query($koneksi, "SELECT * FROM client WHERE id=id");
+    $c = mysqli_fetch_array($client);
+    $data = mysqli_query($koneksi, "SELECT * FROM item WHERE code_client='$code'");
+    $totals = mysqli_query($koneksi, "SELECT * FROM total WHERE code_client='$code'");
+    $t = mysqli_fetch_array($totals);
     ?>
 
     <div class="container">
         <div class="jumbotron mt-4">
             <h2>Data Invoice</h2>
             <hr>
-            <h4>Data Client</h4>
+            <h4>Data Detail Client</h4>
 
+            <hr>
+            <div class="bold">
+                <p>Kode Invoice : <?php echo $c['kode_invoice'] ?></p>
+                <p>Invoice To : <?php echo $c['invoice_to'] ?></p>
+                <p>Tanggal : <?php echo $c['tanggal'] ?></p>
+            </div>
+
+            <p>Detail Pesanan</p>
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">No</th>
-                        <th scope="col">Kode Invoice</th>
-                        <th scope="col">Invoice To</th>
-                        <th scope="col">Tanggal</th>
-                        <th>Opsi</th>
+                        <th scope="col">Item Deskripsi</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Revisi</th>
+                        <th>Total</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -55,17 +70,27 @@
                     foreach ($data as $d) { ?>
                         <tr>
                             <th scope="row"><?php echo $id++ ?></th>
-                            <td><?php echo $d['kode_invoice'] ?></td>
-                            <td><?php echo $d['invoice_to'] ?></td>
-                            <td><?php echo $d['tanggal'] ?></td>
-                            <td><a href="details.php?id=<?php echo $d['id'] ?>&code=<?php echo $d['code_client'] ?>">Detail</a>
+                            <td><?php echo $d['item_desk'] ?></td>
+                            <td><?php echo $d['price'] ?></td>
+                            <td><?php echo $d['rev'] ?></td>
+                            <td><?php echo $d['total'] ?>
                             </td>
                         </tr>
                     <?php } ?>
                 </tbody>
             </table>
+            <div class="bold text-right">
+                <p>Total Semua : <?php echo $t['total_all'] ?></p>
+                <p>Discount : <?php echo $t['discount'] ?></p>
+                <?php if (empty($t['discount'])) { ?>
+                    <p>Result Total : <?php echo $t['total_all'] ?></p>
+                <?php } else { ?>
+                    <p>Result Total : <?php echo $t['total_discount'] ?></p>
+                <?php } ?>
+            </div>
 
-            <a href="../index.php" class="btn btn-primary">Kembali</a>
+            <a href="index.php" class="btn btn-primary">Kembali</a>
+
         </div>
     </div>
 

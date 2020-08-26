@@ -8,6 +8,10 @@
     src: url("../font/centurybold.ttf") format('truetype');
 }
 
+.bold p {
+    font-weight: bold;
+}
+
 * {
     margin: 0;
 
