@@ -1,0 +1,119 @@
+@font-face {
+    font-family: 'CenturyRegular';
+    src: url("../font/centuryregular.TTF") format('truetype');
+}
+
+@font-face {
+    font-family: 'CenturyBold';
+    src: url("../font/centurybold.ttf") format('truetype');
+}
+
+* {
+    margin: 0;
+
+    padding: 0;
+}
+
+body {
+    font-family: 'CenturyRegular';
+    background-color: #161616 !important;
+}
+
+.black {
+    width: 100%;
+    height: 120px;
+    background-color: white;
+}
+
+.tts p {
+    font-family: 'CenturyBold';
+    color: white;
+    text-align: center;
+    font-size: 16px;
+}
+
+.tts2 p {
+    font-family: 'CenturyBold';
+    color: white;
+    text-align: center;
+    font-size: 16px;
+}
+
+.ols {
+    list-style: none;
+    padding-left: 0;
+}
+
+.payment p {
+    color: white;
+    font-family: 'CenturyBold';
+    margin: 0;
+}
+
+.content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 120px;
+}
+
+.ols li {
+    color: white;
+    text-align: center;
+    font-family: 'CenturyBold';
+}
+
+.ttb {
+    margin-top: 40px;
+}
+
+.tts {
+    border-right: 1px solid white;
+}
+
+.hrs {
+    border: 1px solid white;
+}
+
+.iimg {
+    opacity: 0.1;
+}
+
+.pyt {
+    margin-top: 300px;
+}
+
+.cont {
+    padding-left: 60px;
+    padding-right: 60px;
+    height: 100%;
+    width: 100%;
+}
+
+.gg span {
+    color: white;
+    font-family: 'CenturyBold';
+}
+
+
+.h1in {
+    font-family: 'CenturyBold';
+    color: #343533;
+    font-size: 45px;
+    position: relative;
+    top: 25px;
+    left: -70px;
+}
+
+.ss p {
+    color: white;
+    font-family: 'CenturyBold';
+    margin: 0;
+    font-size: 18px;
+}
+
+.imglogo {
+    width: 150px;
+    margin-top: 10px;
+    margin-left: 20px;
+}
