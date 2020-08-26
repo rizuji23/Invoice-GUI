@@ -1,6 +1,6 @@
 <?php
 
-require 'functions.php';
+session_start();
 
 if (empty($_SESSION['code_client'])) {
     header("location: index.php");
@@ -13,7 +13,7 @@ if (empty($_SESSION['code_client'])) {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>INPUT INVOICE</title>
+        <title>EDIT INVOICE ITEM</title>
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/bootstrap.min.css">
     </head>
@@ -37,13 +37,25 @@ if (empty($_SESSION['code_client'])) {
             </div>
         </nav>
 
+        <?php
+
+        require 'functions.php';
+        $id = $_GET['id'];
+        $k = mysqli_query($koneksi, "SELECT * FROM item WHERE id=$id");
+        $kl = mysqli_fetch_array($k);
+
+        if (isset($_POST['edits'])) {
+            edititem($_POST);
+        }
+
+        ?>
 
 
         <div class="container-fluid">
             <div class="row mt-3">
                 <div class="col-sm">
                     <div class="jumbotron">
-                        <h2>Input Invoice</h2>
+                        <h2>Edit Invoice Item</h2>
                         <hr>
                         <h4>Item</h4>
                         <form action="" method="POST" class="formitem">
@@ -55,22 +67,22 @@ if (empty($_SESSION['code_client'])) {
 
                                             <div class="form-group">
                                                 <label for="">Item Deskripsi</label>
-                                                <input type="text" name="item_desk" class="form-control item_desk" value="" /><br>
+                                                <input type="text" name="item_desk" class="form-control item_desk" value="<?php echo $kl['item_desk'] ?>" /><br>
                                             </div>
                                             <div class="form-group">
                                                 <label for="">Revisi</label>
-                                                <input type="text" name="rev" class="form-control rev" value="" /><br>
+                                                <input type="text" name="rev" class="form-control rev" value="<?php echo $kl['rev'] ?>" /><br>
                                             </div>
                                             <div class="form-group">
                                                 <label for="">Harga</label>
-                                                <input type="text" name="harga" class="form-control harga" value="" /><br>
+                                                <input type="text" name="harga" class="form-control harga" value="<?php echo $kl['price'] ?>" /><br>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="">Total</label>
                                                 <input type="text" name="total" class="form-control total" readonly value="" /><br>
                                             </div>
-                                            <a href="javascript:void(0);" class="float-right add_button btn btn-success" title="Add field">Tambah Item</a>
+                                            <input type="submit" class="float-right add_button btn btn-success" name="edits" value="Edit Item">
 
                                         </div>
                                     </div>
@@ -86,18 +98,7 @@ if (empty($_SESSION['code_client'])) {
 
                 </div>
 
-                <div class="col-sm">
-                    <div class="jumbotron">
-                        <h2>History Inputan</h2>
-                        <hr>
-                        <h4>Data</h4>
-                        <div class="itemlist"></div>
 
-
-
-                    </div>
-                    <button class="btn btn-primary" id="lanjut">Lanjut</button>
-                </div>
 
 
             </div>
@@ -106,40 +107,23 @@ if (empty($_SESSION['code_client'])) {
 
 
             <script>
-                $('.itemlist').load('loaditem.php');
-                $('.add_button').click(function() {
+                // $('.itemlist').load('loaditem.php');
+                // $('.add_button').click(function() {
 
-                    var data = $('.formitem').serialize();
-                    $.ajax({
-                        type: 'POST',
-                        url: 'uploaditem.php',
-                        data: data,
-                        success: function() {
-                            $('.itemlist').load('loaditem.php');
-                            $('.rev').val("");
-                            $('.harga').val("");
-                            $('.item_desk').val("");
-                            $('.total').val("");
-                        }
-                    })
-                });
-
-                $('#lanjut').click(function() {
-                    var data = '<?php echo $_SESSION['code_client'] ?>';
-                    $.ajax({
-                        type: 'GET',
-                        url: 'total.php',
-                        data: {
-                            "data": data
-                        },
-                        success: function(data) {
-                            document.location.href = 'discount.php';
-                        }
-                    })
-                })
-
-
-
+                //     var data = $('.formitem').serialize();
+                //     $.ajax({
+                //         type: 'POST',
+                //         url: 'uploaditem.php',
+                //         data: data,
+                //         success: function() {
+                //             $('.itemlist').load('loaditem.php');
+                //             $('.rev').val("");
+                //             $('.harga').val("");
+                //             $('.item_desk').val("");
+                //             $('.total').val("");
+                //         }
+                //     })
+                // });
 
                 $('.harga').keyup(function() {
                     var harga = $(this).val();
