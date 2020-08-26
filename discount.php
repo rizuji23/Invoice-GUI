@@ -42,13 +42,14 @@ if (empty($_SESSION['code_client'])) {
         if (isset($_POST['print'])) {
             $ss = $_SESSION['code_client'];
             $discount = $_POST['discount'];
+            $disnew = str_replace(array('.', ','), '', $discount);
             $totl = mysqli_query($koneksi, "SELECT * FROM total WHERE code_client='$ss'");
             $tt = mysqli_fetch_array($totl);
 
-            $totalall = $tt['total_all'] - $discount;
+            $totalall = $tt['total_all'] - $disnew;
 
             if ($totalall) {
-                $sql = mysqli_query($koneksi, "UPDATE total SET discount='$discount', total_discount='$totalall' WHERE code_client='$ss'");
+                $sql = mysqli_query($koneksi, "UPDATE total SET discount='$disnew', total_discount='$totalall' WHERE code_client='$ss'");
 
                 if ($sql) {
                     $jj = mysqli_query($koneksi, "SELECT * FROM total WHERE code_client='$ss'");
@@ -71,7 +72,7 @@ if (empty($_SESSION['code_client'])) {
                 <form method="POST">
                     <div class="form-group">
                         <label for="">Discount</label>
-                        <input type="text" name="discount" class="form-control">
+                        <input type="text" name="discount" class="form-control discount">
                     </div>
                     <input type="submit" class="btn btn-success" name="print" value="Discount">
                     <a href="report.php?code=<?php echo $_SESSION['code_client']  ?>">Langsung Print</a>
@@ -82,6 +83,32 @@ if (empty($_SESSION['code_client'])) {
 
 
     </body>
+    <script src="css/jquery-3.5.1.min.js"></script>
+    <script>
+        $('.discount').keyup(function() {
+            $(this).val(formatRupiah(this.value));
+            var harga = $(this).val();
+
+            harganew = harga.split('.').join("");
+
+        })
+
+        function formatRupiah(angka, prefix) {
+            var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                split = number_string.split(','),
+                sisa = split[0].length % 3,
+                rupiah = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+
+            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+            return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+        }
+    </script>
 
     </html>
 <?php } ?>

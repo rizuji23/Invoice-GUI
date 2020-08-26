@@ -31,6 +31,13 @@ if (empty($_SESSION['code_client'])) {
         $total = mysqli_query($koneksi, "SELECT * FROM total WHERE code_client='$code'");
         $to = mysqli_fetch_array($total);
 
+        function rupiahs($angka)
+        {
+            $hasil = number_format($angka, 0, ',', '.');
+            return $hasil;
+        }
+
+
         ?>
 
         <div class="black">
@@ -126,7 +133,7 @@ if (empty($_SESSION['code_client'])) {
                                         $id = 1;
                                         foreach ($item as $is) { ?>
 
-                                            <li>IDR <?php echo $is['total'] ?></li>
+                                            <li>IDR <?php echo rupiahs($is['total']) ?></li>
 
                                         <?php } ?>
                                     </ol>
@@ -152,16 +159,16 @@ if (empty($_SESSION['code_client'])) {
 
                                 <div class="col-3 gg">
                                     <div class="total">
-                                        <span>SUBTOTAL: </span><span>IDR <?php echo $to['total_all'] ?></span>
+                                        <span>SUBTOTAL: </span><span>IDR <?php echo rupiahs($to['total_all']) ?></span>
                                         <br>
 
-                                        <span>DISCOUNT: </span><span>IDR <?php echo $to['discount'] ?></span>
+                                        <span>DISCOUNT: </span><span>IDR <?php echo rupiahs($to['discount']) ?></span>
 
                                         <hr class="hrs">
                                         <?php if (empty($to['discount'])) { ?>
-                                            <span>TOTAL </span><span>IDR <?php echo $to['total_all'] ?></span>
+                                            <span>TOTAL </span><span>IDR <?php echo rupiahs($to['total_all']) ?></span>
                                         <?php } else { ?>
-                                            <span>TOTAL </span><span>IDR <?php echo $to['total_discount'] ?></span>
+                                            <span>TOTAL </span><span>IDR <?php echo rupiahs($to['total_discount']) ?></span>
                                         <?php } ?>
                                     </div>
                                 </div>
@@ -180,9 +187,14 @@ if (empty($_SESSION['code_client'])) {
         </div>
 
         <script>
-            window.print()
-            window.onafterprint = function() {
-                document.location.href = 'sessiondes.php';
+            var prom = confirm("Langsung Di Print?");
+            if (prom == true) {
+                window.print()
+                window.onafterprint = function() {
+                    document.location.href = 'sessiondes.php';
+                }
+            } else {
+                document.location.href = 'discount.php';
             }
         </script>
     </body>
