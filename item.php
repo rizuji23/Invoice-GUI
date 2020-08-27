@@ -145,10 +145,15 @@ if (empty($_SESSION['code_client'])) {
                 $('.harga').keyup(function() {
                     $(this).val(formatRupiah(this.value));
                     var harga = $(this).val();
-
+                    var revtotal;
                     harganew = harga.split('.').join("");
                     var rev = $('.rev').val();
-                    var revtotal = parseInt(rev) * 150000;
+                    if (rev == 1) {
+                        revtotal = parseInt(rev) * 0;
+                    } else {
+                        revtotal = (parseInt(rev) - 1) * 150000;
+                    }
+
                     var total = revtotal + parseInt(harganew);
 
                     $('.total').val(total);
