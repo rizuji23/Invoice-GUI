@@ -1,1 +1,1 @@
-# Invoice-GUI
+# Invoice-GUI, Pembuat Invoice Otomatis
